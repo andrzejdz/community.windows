@@ -62,7 +62,7 @@ function Get-RAP([string] $name) {
     $rap.Remove("Status")
 
     # Convert computer group name from UPN to Down-Level Logon format
-    if ($rap.ComputerGroupType -ne 2) {
+    if ($rap.ComputerGroupType -ne 0) {
         $rap.ComputerGroup = Convert-FromSID -sid (ConvertTo-SID -InputObject $rap.ComputerGroup)
     }
 
