@@ -10,6 +10,11 @@ module: win_iis_webapppool
 short_description: Configure IIS Web Application Pools
 description:
   - Creates, removes and configures an IIS Web Application Pool.
+deprecated:
+  removed_in: 4.0.0
+  why: >-
+    This module has been deprecated and an alternative supported module is available in the C(microsoft.iis) collection.
+  alternative: Use C(microsoft.iis.web_app_pool) instead.
 options:
   attributes:
     description:
@@ -84,7 +89,7 @@ EXAMPLES = r'''
     name: AppPool
     attributes:
       managedRuntimeVersion: v4.0
-      autoStart: no
+      autoStart: false
 
 - name: Creates an application pool, sets attributes and starts it
   community.windows.win_iis_webapppool:
@@ -92,7 +97,15 @@ EXAMPLES = r'''
     state: started
     attributes:
       managedRuntimeVersion: v4.0
-      autoStart: no
+      autoStart: false
+
+- name: Creates an application pool with "No Managed Code" for .Net compatibility
+  community.windows.win_iis_webapppool:
+    name: AnotherAppPool
+    state: started
+    attributes:
+      managedRuntimeVersion: ''
+      autoStart: false
 
 # In the below example we are setting attributes in child element processModel
 # https://www.iis.net/configreference/system.applicationhost/applicationpools/add/processmodel

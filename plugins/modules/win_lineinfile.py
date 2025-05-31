@@ -137,7 +137,7 @@ EXAMPLES = r'''
 - name: Create file if it doesn't exist with a specific encoding
   community.windows.win_lineinfile:
     path: C:\Temp\utf16.txt
-    create: yes
+    create: true
     encoding: utf-16
     line: This is a utf-16 encoded file
 
@@ -150,19 +150,12 @@ EXAMPLES = r'''
 - name: Update a line using backrefs
   community.windows.win_lineinfile:
     path: C:\Temp\example.conf
-    backrefs: yes
+    backrefs: true
     regex: '(^name=)'
     line: '$1JohnDoe'
 '''
 
 RETURN = r'''
-backup:
-  description:
-  - Name of the backup file that was created.
-  - This is now deprecated, use C(backup_file) instead.
-  returned: if backup=yes
-  type: str
-  sample: C:\Path\To\File.txt.11540.20150212-220915.bak
 backup_file:
   description: Name of the backup file that was created.
   returned: if backup=yes

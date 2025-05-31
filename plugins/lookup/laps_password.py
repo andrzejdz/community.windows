@@ -12,6 +12,13 @@ description:
 - This lookup returns the LAPS password set for a server from the Active Directory database.
 - See U(https://github.com/jborean93/ansible-lookup-laps_password) for more information around installing
   pre-requisites and testing.
+deprecated:
+  removed_in: '4.0.0'
+  why: >-
+    This plugin does not support the newer Windows LAPS implementation and using a lookup for a password is inefficient. The
+    P(microsoft.ad.ldap#inventory) inventory plugin can be used to retrieve the LAPS password for multiple hosts in a more
+    efficient manner and supports both the legacy and newer LAPS implementation.
+  alternative: Use P(microsoft.ad.ldap#inventory) instead.
 options:
   _terms:
     description:
@@ -134,7 +141,7 @@ EXAMPLES = """
     command: kinit username@ANSIBLE.COM
     responses:
       (?i)password: SecretPass1
-  no_log: True
+  no_log: true
 
 - name: Get the LAPS password using Kerberos auth, relies on kinit already being called
   set_fact:

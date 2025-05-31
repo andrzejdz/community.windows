@@ -2,7 +2,7 @@ name: Collection Docs
 concurrency:
   group: docs-pr-${{ github.head_ref }}
   cancel-in-progress: true
-on:
+"on":
   pull_request_target:
     types: [opened, synchronize, reopened, closed]
 
@@ -22,6 +22,7 @@ jobs:
       init-lenient: false
       init-fail-on-error: true
       build-ref: refs/pull/${{ github.event.number }}/merge
+      extra-collections: microsoft.ad microsoft.iis
 
   # The build job runs with the most lenient settings to ensure the best chance of getting
   # a rendered docsite that can be looked at.
@@ -44,7 +45,7 @@ jobs:
       - name: PR comment
         uses: ansible-community/github-docs-build/actions/ansible-docs-build-comment@main
         with:
-          body-includes: '## Docs Build'
+          body-includes: "## Docs Build"
           reactions: heart
           action: ${{ needs.build-docs.outputs.changed != 'true' && 'remove' || '' }}
           on-closed-action: remove

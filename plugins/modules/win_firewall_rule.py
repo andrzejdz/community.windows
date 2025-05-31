@@ -111,6 +111,7 @@ options:
       - Set the value to just C(*) to apply the rule for all ICMP type codes.
       - See U(https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
         for a list of ICMP types and the codes that apply to them.
+      - ICMP types and codes for IPV6 can be found at U(https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml).
     type: list
     elements: str
 notes:
@@ -132,7 +133,7 @@ EXAMPLES = r'''
     direction: in
     protocol: tcp
     state: present
-    enabled: yes
+    enabled: true
 
 - name: Firewall rule to allow RDP on TCP port 3389
   community.windows.win_firewall_rule:
@@ -143,7 +144,7 @@ EXAMPLES = r'''
     protocol: tcp
     profiles: private
     state: present
-    enabled: yes
+    enabled: true
 
 - name: Firewall rule to be created for application group
   community.windows.win_firewall_rule:
@@ -154,12 +155,12 @@ EXAMPLES = r'''
     direction: in
     protocol: tcp
     state: present
-    enabled: yes
+    enabled: true
 
 - name: Enable all the Firewall rules in application group
   win_firewall_rule:
     group: application
-    enabled: yes
+    enabled: true
 
 - name: Firewall rule to allow port range
   community.windows.win_firewall_rule:
@@ -169,24 +170,24 @@ EXAMPLES = r'''
     direction: in
     protocol: tcp
     state: present
-    enabled: yes
+    enabled: true
 
 - name: Firewall rule to allow ICMP v4 echo (ping)
   community.windows.win_firewall_rule:
     name: ICMP Allow incoming V4 echo request
-    enabled: yes
+    enabled: true
     state: present
     profiles: private
     action: allow
     direction: in
     protocol: icmpv4
     icmp_type_code:
-    - '8:*'
+      - '8:*'
 
 - name: Firewall rule to alloc ICMP v4 on all type codes
   community.windows.win_firewall_rule:
     name: ICMP Allow incoming V4 echo request
-    enabled: yes
+    enabled: true
     state: present
     profiles: private
     action: allow

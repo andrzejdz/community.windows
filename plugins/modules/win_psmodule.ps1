@@ -101,6 +101,10 @@ Function Install-PrereqModule {
         $job = Start-Job -ScriptBlock {
             $ErrorActionPreference = 'Stop'
 
+            if (-not (Get-PackageProvider -ListAvailable | Where-Object { ($_.name -eq 'Nuget') -and ($_.version -ge "2.8.5.201") }) ) {
+                Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
+            }
+
             $Repository = $using:Repository
 
             foreach ($info in $using:ToInstall) {
@@ -395,7 +399,7 @@ if ( $allow_prerelease -and $state -eq "absent" ) {
 
 if ( ($state -eq "latest") -and
     ( $required_version -or $minimum_version -or $maximum_version ) ) {
-    $ErrorMessage = "When the parameter state is equal 'latest' you can use any of required_version, minimum_version, maximum_version."
+    $ErrorMessage = "When the parameter state is equal to 'latest' you can't use any of required_version, minimum_version, maximum_version."
     Fail-Json $result $ErrorMessage
 }
 
